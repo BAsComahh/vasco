@@ -14,10 +14,6 @@ int gcd(int a, int b) {
     return a;
 }
 
-void printInt(int words) {
-    printf("%d\n",words);
-}
-
 void arrExpand(int** arr) { // 数组大小+10
     int i = 0;
     while (arr[i]) {
@@ -33,23 +29,13 @@ void arrCpy(int* arrO, int** arrD, int size) {
     }
 }
 
-void printFactors(int* factors) {
-    printf("factors: ");
-    while(*(factors)) {
-        printf("%d ",*factors);
-        factors++;
-    }
-    printf("\n");
-}
-
 // 找出num的所有因数
 int* getFactors(int num) { 
     int* factors = (int*)malloc(100*sizeof(int));
     memset(factors, 0, 100 * sizeof(int)); 
     int capacity = 100;
     int count = 0;
-    
-    printf("num = %d   getting factors... \n", num);
+
     for (int i = 2; i <= num; i++) { // i = 2起步将因数1排除
         if (count == capacity) {
             capacity *= 2;
@@ -74,28 +60,21 @@ int updateCoprimeFactors(int num, int* coprimeFactors, int size) {
 
     if (factors == NULL) {    // 没有更多因数 -- 结束
         if (size >= 2) {
-            printf("success! count+1~\n");
             return 1;
         }
         else {     // 互素因数数量小于2则不计入
             return 0;
         }
     }
-    printFactors(factors);
-
-    
 
     int j = 0;
     while (factor = factors[j]) {
         int flag = 1;
-        printf("factor = %d\n", factor);
         if (size % 10 == 0) {   // 数组满了
             arrExpand(&coprimeFactors);
         }
         for (int i = 0; i < size; i++) {    // 检查该因数是否与已有因数互素
-            printf("coprime = %d  factor = %d \n",coprimeFactors[i],factor);
             if (gcd(factor,coprimeFactors[i]) != 1) {
-                printf("nope, try next factor.\n");
                 flag = 0;
                 break;
             }
@@ -105,8 +84,6 @@ int updateCoprimeFactors(int num, int* coprimeFactors, int size) {
             memset(new_coprimeFactors,0,(size+1)*sizeof(int));
             arrCpy(coprimeFactors,&new_coprimeFactors,size);
             new_coprimeFactors[size] = factor;
-            printf("in:   num = %d, coprime ",num/factor);
-            printFactors(new_coprimeFactors);
             ans += updateCoprimeFactors(num/factor,new_coprimeFactors,size+1);
             free(new_coprimeFactors);
         }   
@@ -114,7 +91,6 @@ int updateCoprimeFactors(int num, int* coprimeFactors, int size) {
     }
     
     free(factors);
-    printInt(ans);
     return ans;
 }
 
@@ -131,7 +107,6 @@ int primeFactorize(int num) {
     int i = 0;
     while(factor = factors[i]){ // 计算每个因数有几种互素的结果
         coprimeFactors[0] = factor;
-        printf("start:   num = %d, new factor = %d, size = %d\n",num/factor,factor,1);
         ans += updateCoprimeFactors(num/factor,coprimeFactors,1);
         i++;
     }
