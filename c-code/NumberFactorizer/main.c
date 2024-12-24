@@ -6,8 +6,8 @@
 #include <stdlib.h>
 
 int main() {
-    int in = 0;
-    scanf("%d",&in);
-    printf("ans = %d\n",primeFactorize(in));
+    int input = 0;
+    scanf("%d",&input);
+    printf("ans = %d\n",primeFactorize(input));
     return 0;
 }
