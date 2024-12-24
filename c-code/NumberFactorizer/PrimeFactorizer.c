@@ -2,20 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 
-
 #include "PrimeFactorizer.h"
 
-
-int factorial(int n) {
-    if (n == 0 || n == 1) {
-        return 0; // 只有一个数不算入情况
-    }
-    int result = 1;
-    for (int i = 2; i <= n; i++) {
-        result *= i;
-    }
-    return result;
-}
 
 int gcd(int a, int b) {
     while (b != 0) {
@@ -24,10 +12,6 @@ int gcd(int a, int b) {
         a = temp;
     }
     return a;
-}
-
-void pin() {
-    printf("I'm here\n");
 }
 
 void printInt(int words) {
